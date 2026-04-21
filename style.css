@@ -1,8 +1,6 @@
 body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #020617;
-  color: white;
+   background image: url "C:\Users\crv_a\Documents\SISTEMA RAN\GRAFICOS\imagen fondo.png"
+   background-size: cover;
 }
 
 .bg {
