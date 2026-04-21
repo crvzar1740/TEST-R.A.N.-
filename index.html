@@ -1,457 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Test RAN® — Evaluación de Regulación Funcional</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --teal: #1D9E75;
-    --teal-light: #E1F5EE;
-    --teal-dark: #0F6E56;
-    --blue: #378ADD;
-    --blue-light: #E6F1FB;
-    --blue-dark: #185FA5;
-    --purple: #7F77DD;
-    --purple-light: #EEEDFE;
-    --purple-dark: #534AB7;
-    --amber: #BA7517;
-    --amber-light: #FAEEDA;
-    --red: #A32D2D;
-    --red-light: #FCEBEB;
-    --green: #3B6D11;
-    --green-light: #EAF3DE;
-    --text: #1a1a1a;
-    --text-muted: #6b6b6b;
-    --border: rgba(0,0,0,0.1);
-    --bg: #f7f5f0;
-    --card: #ffffff;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 0;
-  }
-
-  /* HERO */
-  .hero {
-    background: #0d1f1a;
-    color: #fff;
-    padding: 4rem 1.5rem 5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 30% 60%, rgba(29,158,117,0.25) 0%, transparent 60%),
-                radial-gradient(ellipse at 75% 20%, rgba(127,119,221,0.2) 0%, transparent 55%);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--teal);
-    background: rgba(29,158,117,0.12);
-    border: 1px solid rgba(29,158,117,0.3);
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2.4rem, 6vw, 4rem);
-    font-weight: 400;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: #9FE1CB;
-  }
-  .hero-sub {
-    font-size: 16px;
-    color: rgba(255,255,255,0.6);
-    max-width: 480px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
-    font-weight: 300;
-  }
-  .hero-meta {
-    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
-  }
-  .hero-chip {
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .hero-chip span { color: rgba(255,255,255,0.9); font-weight: 500; }
-
-  /* MAIN */
-  .container { max-width: 640px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
-
-  /* PROGRESS */
-  .progress-wrap { margin-bottom: 2rem; }
-  .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .progress-label { font-size: 12px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
-  .progress-count { font-size: 12px; color: var(--text-muted); }
-  .progress-bar { height: 3px; background: rgba(0,0,0,0.08); border-radius: 2px; }
-  .progress-fill { height: 100%; border-radius: 2px; background: var(--teal); transition: width 0.4s ease; }
-
-  /* SECTION CARD */
-  .section-card {
-    background: var(--card);
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    padding: 1.75rem 1.5rem;
-    margin-bottom: 1.25rem;
-    animation: fadeUp 0.4s ease both;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .section-card:nth-child(2) { animation-delay: 0.05s; }
-  .section-card:nth-child(3) { animation-delay: 0.1s; }
-
-  .section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
-  .section-icon {
-    width: 36px; height: 36px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .icon-teal { background: var(--teal-light); }
-  .icon-blue { background: var(--blue-light); }
-  .icon-purple { background: var(--purple-light); }
-  .section-info {}
-  .section-num { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
-  .section-name { font-size: 16px; font-weight: 500; color: var(--text); margin-top: 1px; }
-
-  /* QUESTIONS */
-  .question { margin-bottom: 1.5rem; }
-  .question:last-child { margin-bottom: 0; }
-  .q-text {
-    font-size: 14px; line-height: 1.6; color: var(--text);
-    margin-bottom: 12px; font-weight: 300;
-  }
-  .q-num-inline { font-weight: 500; color: var(--text-muted); }
-  .scale-wrap { display: flex; align-items: center; gap: 8px; }
-  .scale-legend { font-size: 11px; color: var(--text-muted); white-space: nowrap; min-width: 44px; font-weight: 400; }
-  .scale-legend.right { text-align: right; }
-  .scale-btns { display: flex; gap: 5px; flex: 1; justify-content: center; }
-  .sbtn {
-    width: 38px; height: 38px; border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.12);
-    background: #fafafa;
-    font-size: 14px; font-weight: 500; color: var(--text-muted);
-    cursor: pointer; transition: all 0.15s;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .sbtn:hover { border-color: rgba(0,0,0,0.25); color: var(--text); transform: translateY(-1px); }
-  .sbtn.active-teal { background: var(--teal); border-color: var(--teal-dark); color: #fff; transform: translateY(-1px); }
-  .sbtn.active-blue { background: var(--blue); border-color: var(--blue-dark); color: #fff; transform: translateY(-1px); }
-  .sbtn.active-purple { background: var(--purple); border-color: var(--purple-dark); color: #fff; transform: translateY(-1px); }
-
-  /* SUBMIT */
-  .submit-wrap { margin-top: 1.5rem; }
-  .warn { font-size: 13px; color: var(--red); background: var(--red-light); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; display: none; }
-  .submit-btn {
-    width: 100%; padding: 15px;
-    background: #0d1f1a; color: #fff;
-    border: none; border-radius: 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px; font-weight: 500;
-    cursor: pointer; transition: all 0.2s;
-    letter-spacing: 0.01em;
-  }
-  .submit-btn:hover { background: #162e27; transform: translateY(-1px); }
-  .submit-btn:active { transform: scale(0.99); }
-
-  /* RESULTS */
-  #result-view { display: none; animation: fadeUp 0.5s ease both; }
-  .result-hero {
-    background: #0d1f1a; color: #fff;
-    border-radius: 16px; padding: 2rem 1.75rem;
-    margin-bottom: 1.25rem; text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .result-hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(29,158,117,0.3) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .result-hero h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2rem; font-weight: 400;
-    margin-bottom: 6px;
-  }
-  .result-hero p { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 300; }
-
-  .area-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  .area-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .area-label { font-size: 13px; color: var(--text-muted); font-weight: 400; margin-bottom: 2px; }
-  .area-name-big { font-size: 17px; font-weight: 500; color: var(--text); }
-  .area-score-big { font-size: 2rem; font-weight: 500; line-height: 1; }
-  .area-score-max { font-size: 13px; color: var(--text-muted); }
-  .area-bar-bg { height: 5px; background: rgba(0,0,0,0.07); border-radius: 3px; margin-bottom: 12px; }
-  .area-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(.4,0,.2,1); width: 0; }
-  .area-diag { display: inline-block; font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 100px; }
-  .d-opt { background: var(--green-light); color: var(--green); }
-  .d-bien { background: var(--blue-light); color: var(--blue-dark); }
-  .d-riesgo { background: var(--amber-light); color: var(--amber); }
-  .d-dis { background: var(--red-light); color: var(--red); }
-
-  .scale-ref {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
-  }
-  .scale-ref h3 { font-size: 13px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
-  .scale-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; }
-  .scale-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .scale-item:last-child { margin-bottom: 0; }
-
-  .result-footer { font-size: 12px; color: var(--text-muted); line-height: 1.7; text-align: center; margin-bottom: 1.5rem; font-weight: 300; }
-
-  .restart-btn {
-    width: 100%; padding: 13px;
-    background: transparent; color: var(--text-muted);
-    border: 1px solid var(--border); border-radius: 12px;
-    font-family: 'DM Sans', sans-serif; font-size: 14px;
-    cursor: pointer; transition: all 0.15s;
-  }
-  .restart-btn:hover { background: rgba(0,0,0,0.04); color: var(--text); }
-
-  @media (max-width: 480px) {
-    .hero { padding: 3rem 1.25rem 4rem; }
-    .sbtn { width: 34px; height: 34px; font-size: 13px; }
-    .scale-legend { display: none; }
-    .scale-btns { justify-content: space-between; width: 100%; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>RAN Test</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-eyebrow">Evaluación Personal</div>
-  <h1>Test RAN®<br><em>Regulación Funcional</em></h1>
-  <p class="hero-sub">Medí tu capacidad de recuperación energética, respuesta del sistema y equilibrio funcional.</p>
-  <div class="hero-meta">
-    <div class="hero-chip">⏱ <span>5 minutos</span></div>
-    <div class="hero-chip">📋 <span>15 preguntas</span></div>
-    <div class="hero-chip">📊 <span>3 áreas</span></div>
+<div class="bg"></div>
+
+<!-- START -->
+<div class="card center" id="start">
+  <h1>
+    No estás tomando malas decisiones…<br>
+    <span>estás decidiendo en mal estado.</span>
+  </h1>
+
+  <p class="sub">
+    Este test detecta tu estado cognitivo actual en 2 minutos.
+  </p>
+
+  <button class="cta" onclick="startTest()">
+    Detectar mi estado →
+  </button>
+</div>
+
+<!-- QUIZ -->
+<div class="card hidden" id="quiz">
+  <div class="top">
+    <div class="progress">
+      <div id="bar"></div>
+    </div>
+    <span id="step"></span>
+  </div>
+
+  <h2 id="question"></h2>
+
+  <div class="options">
+    <button onclick="answer(1)">1<span>Muy bajo</span></button>
+    <button onclick="answer(2)">2<span>Bajo</span></button>
+    <button onclick="answer(3)">3<span>Normal</span></button>
+    <button onclick="answer(4)">4<span>Alto</span></button>
+    <button onclick="answer(5)">5<span>Muy alto</span></button>
   </div>
 </div>
 
-<div class="container">
+<!-- RESULT -->
+<div class="card hidden center" id="result">
+  <p class="mini">TU ESTADO ACTUAL</p>
 
-  <div id="form-view">
-    <div class="progress-wrap">
-      <div class="progress-top">
-        <span class="progress-label">Progreso</span>
-        <span class="progress-count" id="prog-count">0 / 15</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-    </div>
+  <h1 id="resultText"></h1>
 
-    <div class="section-card">
-      <div class="section-head">
-        <div class="section-icon icon-teal">🌿</div>
-        <div class="section-info">
-          <div class="section-num">Sección 1</div>
-          <div class="section-name">Regeneración</div>
-        </div>
-      </div>
-      <div id="s1-q"></div>
-    </div>
-
-    <div class="section-card">
-      <div class="section-head">
-        <div class="section-icon icon-blue">⚡</div>
-        <div class="section-info">
-          <div class="section-num">Sección 2</div>
-          <div class="section-name">Activación</div>
-        </div>
-      </div>
-      <div id="s2-q"></div>
-    </div>
-
-    <div class="section-card">
-      <div class="section-head">
-        <div class="section-icon icon-purple">⚖️</div>
-        <div class="section-info">
-          <div class="section-num">Sección 3</div>
-          <div class="section-name">Normalización</div>
-        </div>
-      </div>
-      <div id="s3-q"></div>
-    </div>
-
-    <div class="submit-wrap">
-      <div class="warn" id="warn">Por favor, respondé todas las preguntas antes de continuar.</div>
-      <button class="submit-btn" onclick="submitTest()">Ver mis resultados →</button>
-    </div>
+  <div class="scoreBox">
+    <span id="score"></span>
   </div>
 
-  <div id="result-view">
-    <div class="result-hero">
-      <h2>¡Test completado!</h2>
-      <p>Resultados de tu evaluación RAN®</p>
-    </div>
+  <p id="desc"></p>
 
-    <div id="areas-out"></div>
-
-    <div class="scale-ref">
-      <h3>Escala de referencia</h3>
-      <div class="scale-item"><div class="scale-dot" style="background:#3B6D11"></div><strong>20–25 pts:</strong> Sistema funcional óptimo</div>
-      <div class="scale-item"><div class="scale-dot" style="background:#185FA5"></div><strong>15–19 pts:</strong> Área funcional pero mejorable</div>
-      <div class="scale-item"><div class="scale-dot" style="background:#BA7517"></div><strong>10–14 pts:</strong> Riesgo de desregulación</div>
-      <div class="scale-item"><div class="scale-dot" style="background:#A32D2D"></div><strong>Menos de 10 pts:</strong> Disfunción significativa</div>
-    </div>
-
-    <p class="result-footer">Este test evalúa tu capacidad de recuperación energética,<br>respuesta del sistema y regulación funcional.</p>
-    <button class="restart-btn" onclick="restartTest()">↺ Volver a realizar el test</button>
+  <div class="ctaGroup">
+    <button class="cta big">Aprender Método RAN</button>
+    <button class="ghost" onclick="location.reload()">Repetir</button>
   </div>
-
 </div>
 
-<script>
-const DATA = [
-  { id:'s1', cls:'active-teal', color:'#1D9E75', name:'Regeneración', qs:[
-    'Me despierto con sensación de energía suficiente para iniciar el día.',
-    'Mi sueño suele ser profundo y reparador.',
-    'Después de jornadas exigentes, logro recuperarme adecuadamente.',
-    'Siento que mi nivel de energía se mantiene estable durante el día.',
-    'Puedo descansar mentalmente cuando no estoy trabajando.'
-  ]},
-  { id:'s2', cls:'active-blue', color:'#378ADD', name:'Activación', qs:[
-    'Cuando enfrento desafíos, puedo activarme rápidamente.',
-    'Mantengo claridad mental bajo presión.',
-    'Tengo motivación suficiente para iniciar tareas exigentes.',
-    'Mi capacidad de concentración es buena.',
-    'Puedo responder con rapidez a situaciones nuevas.'
-  ]},
-  { id:'s3', cls:'active-purple', color:'#7F77DD', name:'Normalización', qs:[
-    'Después de momentos de estrés, puedo volver a un estado de calma.',
-    'Mantengo estabilidad emocional durante el día.',
-    'Mi cuerpo tolera bien períodos de alta demanda.',
-    'No experimento fatiga mental persistente.',
-    'Siento que mi organismo mantiene un equilibrio general.'
-  ]}
-];
-
-const answers = {};
-
-function getDiag(s) {
-  if (s >= 20) return { text:'Sistema funcional óptimo', cls:'d-opt' };
-  if (s >= 15) return { text:'Área funcional pero mejorable', cls:'d-bien' };
-  if (s >= 10) return { text:'Riesgo de desregulación', cls:'d-riesgo' };
-  return { text:'Disfunción significativa', cls:'d-dis' };
-}
-
-function buildAll() {
-  DATA.forEach(sec => {
-    const wrap = document.getElementById(sec.id + '-q');
-    wrap.innerHTML = '';
-    sec.qs.forEach((q, i) => {
-      const div = document.createElement('div');
-      div.className = 'question';
-      div.innerHTML = `<p class="q-text"><span class="q-num-inline">${i+1}.</span> ${q}</p>
-        <div class="scale-wrap">
-          <span class="scale-legend">1 Nunca</span>
-          <div class="scale-btns" id="${sec.id}-q${i}">
-            ${[1,2,3,4,5].map(v=>`<button class="sbtn" onclick="pick('${sec.id}',${i},${v},this,'${sec.cls}')">${v}</button>`).join('')}
-          </div>
-          <span class="scale-legend right">5 Siempre</span>
-        </div>`;
-      wrap.appendChild(div);
-    });
-  });
-}
-
-function pick(sid, qi, val, btn, cls) {
-  const key = sid + '-' + qi;
-  answers[key] = val;
-  const row = document.getElementById(sid + '-q' + qi);
-  row.querySelectorAll('.sbtn').forEach(b => b.className = 'sbtn');
-  btn.classList.add(cls);
-  const total = Object.keys(answers).length;
-  document.getElementById('prog-fill').style.width = (total / 15 * 100) + '%';
-  document.getElementById('prog-count').textContent = total + ' / 15';
-}
-
-function submitTest() {
-  if (Object.keys(answers).length < 15) {
-    document.getElementById('warn').style.display = 'block';
-    return;
-  }
-  document.getElementById('warn').style.display = 'none';
-
-  const out = document.getElementById('areas-out');
-  out.innerHTML = '';
-
-  DATA.forEach(sec => {
-    let score = 0;
-    for (let i = 0; i < 5; i++) score += answers[sec.id + '-' + i];
-    const pct = Math.round(score / 25 * 100);
-    const d = getDiag(score);
-    const card = document.createElement('div');
-    card.className = 'area-card';
-    card.innerHTML = `
-      <div class="area-top">
-        <div>
-          <div class="area-label">Área evaluada</div>
-          <div class="area-name-big">${sec.name}</div>
-        </div>
-        <div style="text-align:right">
-          <div class="area-score-big" style="color:${sec.color}">${score}</div>
-          <div class="area-score-max">/ 25 pts</div>
-        </div>
-      </div>
-      <div class="area-bar-bg"><div class="area-bar-fill" id="bar-${sec.id}" style="background:${sec.color}"></div></div>
-      <span class="area-diag ${d.cls}">${d.text}</span>`;
-    out.appendChild(card);
-    setTimeout(() => {
-      document.getElementById('bar-' + sec.id).style.width = pct + '%';
-    }, 100);
-  });
-
-  document.getElementById('form-view').style.display = 'none';
-  document.getElementById('result-view').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function restartTest() {
-  for (let k in answers) delete answers[k];
-  buildAll();
-  document.getElementById('prog-fill').style.width = '0%';
-  document.getElementById('prog-count').textContent = '0 / 15';
-  document.getElementById('result-view').style.display = 'none';
-  document.getElementById('form-view').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-buildAll();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
