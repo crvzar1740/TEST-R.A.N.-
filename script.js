@@ -1,78 +1,126 @@
-let i = 0;
-let totalScore = 0;
-
-const questions = [
-"¿Qué tan fácil te resulta concentrarte?",
-"¿Sentís tu mente saturada?",
-"¿Te cuesta decidir cosas simples?",
-"¿Tu cabeza está clara ahora mismo?",
-"¿Te distraés rápido?",
-"¿Podés sostener foco?",
-"¿Te sentís mentalmente agotado?",
-"¿Te cuesta priorizar?",
-"¿Estás enfocado?",
-"¿Tu energía mental es alta?"
-];
-
-// referencias reales al DOM
-const startScreen = document.getElementById("start");
-const quizScreen = document.getElementById("quiz");
-const resultScreen = document.getElementById("result");
-
-const questionEl = document.getElementById("question");
-const bar = document.getElementById("bar");
-const step = document.getElementById("step");
-
-const resultTextEl = document.getElementById("resultText");
-const scoreEl = document.getElementById("score");
-const descEl = document.getElementById("desc");
-
-// iniciar
-function startTest() {
-  startScreen.classList.add("hidden");
-  quizScreen.classList.remove("hidden");
-  loadQuestion();
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #020617;
+  color: white;
 }
 
-function loadQuestion() {
-  questionEl.innerText = questions[i];
-  bar.style.width = ((i / questions.length) * 100) + "%";
-  step.innerText = (i + 1) + " / " + questions.length;
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, #0ea5e9 0%, transparent 40%),
+              radial-gradient(circle at 80% 70%, #6366f1 0%, transparent 40%);
+  filter: blur(80px);
+  z-index: -1;
 }
 
-function answer(value) {
-  totalScore += value;
-  i++;
-
-  if (i < questions.length) {
-    loadQuestion();
-  } else {
-    showResult();
-  }
+.card {
+  max-width: 720px;
+  margin: 80px auto;
+  padding: 40px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
 }
 
-function showResult() {
-  quizScreen.classList.add("hidden");
-  resultScreen.classList.remove("hidden");
+.center {
+  text-align: center;
+}
 
-  let text = "";
-  let desc = "";
+h1 {
+  font-size: 2.4rem;
+  line-height: 1.3;
+}
 
-  if (totalScore < 20) {
-    text = "Saturación mental";
-    desc = "Tu cerebro está sobrecargado. Cualquier decisión ahora es de baja calidad.";
-  } else if (totalScore < 30) {
-    text = "Fatiga cognitiva";
-    desc = "Estás funcionando, pero con desgaste. Riesgo alto de errores invisibles.";
-  } else if (totalScore < 40) {
-    text = "Modo operativo";
-    desc = "Podés rendir, pero no estás en tu mejor nivel.";
-  } else {
-    text = "Alta claridad";
-    desc = "Este es tu mejor estado para decisiones importantes.";
-  }
+h1 span {
+  color: #38bdf8;
+}
 
-  resultTextEl.innerText = text;
-  scoreEl.innerText = totalScore + "/50";
-  descEl.innerText = desc;
+.sub {
+  opacity: 0.8;
+  margin-top: 20px;
+}
+
+.cta {
+  margin-top: 30px;
+  padding: 16px 30px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(90deg,#38bdf8,#6366f1);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta:hover {
+  transform: scale(1.07);
+}
+
+.big {
+  font-size: 18px;
+  padding: 18px 40px;
+}
+
+.ghost {
+  margin-top: 15px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.options button {
+  width: 18%;
+  padding: 20px 0;
+  border-radius: 14px;
+  border: none;
+  background: rgba(255,255,255,0.07);
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.options button:hover {
+  background: rgba(56,189,248,0.3);
+  transform: translateY(-5px);
+}
+
+.options span {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+
+#bar {
+  height: 100%;
+  width: 0%;
+  background: #38bdf8;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.scoreBox {
+  margin: 20px 0;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
 }
