@@ -4,7 +4,6 @@ body {
    background-position: center;
    background-attachment: fixed;
 }
-
 .bg {
   position: fixed;
   width: 100%;
@@ -14,7 +13,6 @@ body {
   filter: blur(80px);
   z-index: -1;
 }
-
 .card {
   max-width: 720px;
   margin: 80px auto;
@@ -24,25 +22,25 @@ body {
   backdrop-filter: blur(16px);
   box-shadow: 0 30px 80px rgba(0,0,0,0.6);
 }
-
 .center {
   text-align: center;
 }
-
 h1 {
   font-size: 2.4rem;
   line-height: 1.3;
+  color: white;
 }
-
 h1 span {
   color: #38bdf8;
 }
-
+h2 {
+  color: white;
+}
 .sub {
   opacity: 0.8;
   margin-top: 20px;
+  color: white;
 }
-
 .cta {
   margin-top: 30px;
   padding: 16px 30px;
@@ -51,93 +49,107 @@ h1 span {
   background: linear-gradient(90deg,#38bdf8,#6366f1);
   color: white;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
 }
-
 .cta:hover {
   transform: scale(1.07);
 }
-
 .big {
   font-size: 18px;
   padding: 18px 40px;
 }
-
 .ghost {
   margin-top: 15px;
   background: transparent;
   border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
-
+.ghost:hover {
+  background: rgba(255,255,255,0.08);
+}
 .options {
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
-  gap: 10px;
+  gap: 12px;
 }
-
 .options button {
   width: 18%;
-  padding: 30px 0;
-  border-radius: 14px;
+  padding: 42px 0;
+  border-radius: 16px;
   border: none;
-  background: rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.12);
   color: white;
-  font-weight: bold;
-  font-size: 24px;
+  font-weight: 900;
+  font-size: 32px;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
-
 .options button:hover {
   background: rgba(56,189,248,0.3);
   transform: translateY(-5px);
 }
-
 .options button.answered-1 {
   background: #ef4444;
   color: white;
-  font-weight: bold;
+  font-weight: 900;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(239,68,68,0.5);
 }
-
 .options button.answered-2 {
   background: #f97316;
   color: white;
-  font-weight: bold;
+  font-weight: 900;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(249,115,22,0.5);
 }
-
 .options button.answered-3 {
   background: #eab308;
   color: white;
-  font-weight: bold;
+  font-weight: 900;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(234,179,8,0.5);
 }
-
 .options button.answered-4 {
   background: #22c55e;
   color: white;
-  font-weight: bold;
+  font-weight: 900;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(34,197,94,0.5);
 }
-
 .options button.answered-5 {
   background: #06b6d4;
   color: white;
-  font-weight: bold;
+  font-weight: 900;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(6,182,212,0.5);
 }
-
 .options span {
   display: block;
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.85;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
-
 .progress {
   width: 100%;
   height: 6px;
   background: rgba(255,255,255,0.1);
   border-radius: 10px;
 }
-
 #bar {
   height: 100%;
   width: 0%;
@@ -145,15 +157,66 @@ h1 span {
   border-radius: 10px;
   transition: 0.3s;
 }
-
+.top {
+  margin-bottom: 30px;
+}
+#step {
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  display: block;
+  margin-top: 8px;
+}
 .scoreBox {
   margin: 20px 0;
   padding: 10px 20px;
   border-radius: 20px;
   background: rgba(255,255,255,0.1);
   display: inline-block;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
-
+.mini {
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+#desc {
+  color: rgba(255,255,255,0.75);
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
 .hidden {
   display: none;
+}
+
+@media (max-width: 600px) {
+  .options {
+    gap: 8px;
+  }
+  .options button {
+    padding: 32px 0;
+    font-size: 26px;
+    border-radius: 12px;
+  }
+  .options span {
+    font-size: 11px;
+  }
+  .card {
+    margin: 30px 16px;
+    padding: 28px 20px;
+  }
+  h1 {
+    font-size: 1.7rem;
+  }
 }
