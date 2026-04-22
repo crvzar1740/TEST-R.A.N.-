@@ -74,22 +74,55 @@ h1 span {
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
+  gap: 10px;
 }
 
 .options button {
   width: 18%;
-  padding: 20px 0;
+  padding: 30px 0;
   border-radius: 14px;
   border: none;
   background: rgba(255,255,255,0.07);
   color: white;
+  font-weight: bold;
+  font-size: 24px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
 }
 
 .options button:hover {
   background: rgba(56,189,248,0.3);
   transform: translateY(-5px);
+}
+
+.options button.answered-1 {
+  background: #ef4444;
+  color: white;
+  font-weight: bold;
+}
+
+.options button.answered-2 {
+  background: #f97316;
+  color: white;
+  font-weight: bold;
+}
+
+.options button.answered-3 {
+  background: #eab308;
+  color: white;
+  font-weight: bold;
+}
+
+.options button.answered-4 {
+  background: #22c55e;
+  color: white;
+  font-weight: bold;
+}
+
+.options button.answered-5 {
+  background: #06b6d4;
+  color: white;
+  font-weight: bold;
 }
 
 .options span {
