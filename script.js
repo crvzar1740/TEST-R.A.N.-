@@ -62,3 +62,24 @@ function show() {
   score.innerText = score + "/50";
   desc.innerText = desc;
 }
+const botones = document.querySelectorAll("button");
+
+botones.forEach(boton => {
+    boton.addEventListener("click", () => {
+
+        // quitar colores a todos
+        botones.forEach(b => {
+            b.classList.remove(
+                "activo-1",
+                "activo-2",
+                "activo-3",
+                "activo-4",
+                "activo-5"
+            );
+        });
+
+        // agregar color al botón clickeado
+        const num = boton.getAttribute("data-num");
+        boton.classList.add("activo-" + num);
+    });
+});
