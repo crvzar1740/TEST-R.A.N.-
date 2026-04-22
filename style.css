@@ -124,38 +124,3 @@ h1 span {
 .hidden {
   display: none;
 }
-button {
-    font-size: 22px;
-    padding: 15px 30px;
-    margin: 10px;
-    border: none;
-    border-radius: 12px;
-    background-color: #444; /* color inicial */
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-button {
-    font-size: 22px;
-    padding: 15px 30px;
-    margin: 10px;
-    border: none;
-    border-radius: 12px;
-    background-color: #444; /* color inicial */
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
-
-/* Colores cuando están activos */
-.activo-1 { background-color: red; }
-.activo-2 { background-color: orange; }
-.activo-3 { background-color: yellow; color: black; }
-.activo-4 { background-color: green; }
-.activo-5 { background-color: skyblue; }
