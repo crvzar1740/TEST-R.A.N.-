@@ -1,17 +1,25 @@
 const questions = [
-  { cat: "🧠 CLARIDAD MENTAL",    text: "¿Qué tan clara sientes tu mente en este momento?" },
-  { cat: "⚡ ENERGÍA COGNITIVA",  text: "¿Qué tan fácil te resulta concentrarte?" },
-  { cat: "🌊 SATURACIÓN",         text: "¿Sentís tu mente saturada o con ruido mental?" },
-  { cat: "🎯 FOCO",               text: "¿Podés sostener el foco en una sola tarea?" },
-  { cat: "⚖️ DECISIÓN",           text: "¿Te cuesta decidir cosas simples hoy?" },
-  { cat: "🔋 RESERVA MENTAL",     text: "¿Sentís que tenés energía mental disponible?" },
-  { cat: "💨 DISTRACCIÓN",        text: "¿Te distraés rápido al intentar trabajar?" },
-  { cat: "🧩 PRIORIZACIÓN",       text: "¿Podés priorizar con claridad lo que importa?" },
-  { cat: "😮‍💨 AGOTAMIENTO",       text: "¿Te sentís mentalmente agotado en este momento?" },
-  { cat: "🚀 RENDIMIENTO",        text: "¿Tu energía mental está alta para rendir bien?" }
+  { cat: "🧠 CLARIDAD MENTAL",   text: "¿Qué tan clara sientes tu mente en este momento?",
+    labels: ["Muy confusa", "Confusa", "Regular", "Clara", "Muy clara"] },
+  { cat: "⚡ ENERGÍA COGNITIVA", text: "¿Qué tan fácil te resulta concentrarte?",
+    labels: ["Muy difícil", "Difícil", "Regular", "Fácil", "Muy fácil"] },
+  { cat: "🌊 SATURACIÓN",        text: "¿Sentís tu mente saturada o con ruido mental?",
+    labels: ["Nada", "Poco", "Algo", "Bastante", "Totalmente"] },
+  { cat: "🎯 FOCO",              text: "¿Podés sostener el foco en una sola tarea?",
+    labels: ["Para nada", "Poco", "A veces", "Bastante", "Totalmente"] },
+  { cat: "⚖️ DECISIÓN",          text: "¿Te cuesta decidir cosas simples hoy?",
+    labels: ["Nada", "Poco", "Algo", "Bastante", "Muchísimo"] },
+  { cat: "🔋 RESERVA MENTAL",    text: "¿Sentís que tenés energía mental disponible?",
+    labels: ["Sin reserva", "Poca", "Regular", "Bastante", "Mucha"] },
+  { cat: "💨 DISTRACCIÓN",       text: "¿Te distraés rápido al intentar trabajar?",
+    labels: ["Nunca", "Poco", "A veces", "Seguido", "Siempre"] },
+  { cat: "🧩 PRIORIZACIÓN",      text: "¿Podés priorizar con claridad lo que importa?",
+    labels: ["Para nada", "Con dificultad", "Regular", "Bastante", "Con claridad"] },
+  { cat: "😮‍💨 AGOTAMIENTO",      text: "¿Te sentís mentalmente agotado en este momento?",
+    labels: ["Nada", "Poco", "Algo", "Bastante", "Totalmente"] },
+  { cat: "🚀 RENDIMIENTO",       text: "¿Tu energía mental está alta para rendir bien?",
+    labels: ["Muy baja", "Baja", "Regular", "Alta", "Muy alta"] }
 ];
-
-const labels = ["Muy bajo", "Bajo", "Moderado", "Alto", "Muy alto"];
 
 let current = 0;
 const answers = new Array(questions.length).fill(0);
@@ -33,7 +41,7 @@ function renderQuestion() {
   for (let v = 1; v <= 5; v++) {
     const btn = document.getElementById('btn' + v);
     btn.className = '';
-    btn.querySelector('.lbl').textContent = labels[v - 1];
+    btn.querySelector('.lbl').textContent = q.labels[v - 1];
   }
 
   // Restore selection if already answered
